@@ -24,17 +24,22 @@
         </div>
         <div class="layui-form-item">
           <label class="layui-form-label">密码</label>
-          <div class="layui-input-block">
+          <div class="layui-input-inline">
             <input
               type="password"
-              name="title"
+              name="password"
               required
               lay-verify="required"
               placeholder="请输入密码"
+              v-modela.trim="password"
+              v-validate="'required|min:6'"
               autocomplete="off"
               class="layui-input"
               v-model="password"
             />
+          </div>
+          <div class="error layui-form-mid">
+            {{ errors.first('password') }}
           </div>
         </div>
         <div class="layui-form-item">
@@ -42,14 +47,18 @@
           <div class="layui-input-inline">
             <input
               type="text"
-              name="title"
+              name="code"
               required
               lay-verify="required"
               placeholder="请输入验证码"
+              v-validate="'required|length:4'"
               autocomplete="off"
               class="layui-input"
-              v-model="code"
+              v-model.trim="code"
             />
+          </div>
+           <div class="error layui-form-mid">
+            {{ errors.first('code') }}
           </div>
           <div
             class="layui-form-mid svg"
@@ -131,5 +140,9 @@ input {
   position: relative;
   top: -15px;
   cursor: pointer;
+}
+
+.error {
+  color: red;
 }
 </style>
