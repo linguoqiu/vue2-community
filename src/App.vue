@@ -4,17 +4,22 @@
       <form class="layui-form layui-form-pane" action="">
         <div class="layui-form-item">
           <label class="layui-form-label">用户名</label>
-          <div class="layui-input-block">
+          <div class="layui-input-inline">
             <input
               type="text"
-              name="title"
+              name="name"
               required
               lay-verify="required"
               placeholder="请输入用户名"
+              v-modela.trim="name"
+              v-validate="'required|email'"
               autocomplete="off"
               class="layui-input"
               v-model="name"
             />
+          </div>
+          <div class="error layui-form-mid">
+            {{ errors.first('name') }}
           </div>
         </div>
         <div class="layui-form-item">
