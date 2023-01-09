@@ -10,7 +10,7 @@
                 type="text"
                 name="name"
                 placeholder="请输入用户名"
-                v-modela.trim="name"
+                v-model.trim="name"
                 autocomplete="off"
                 class="layui-input"
               />
@@ -27,7 +27,7 @@
               required
               lay-verify="required"
               placeholder="请输入密码"
-              v-modela.trim="password"
+              v-model.trim="password"
               autocomplete="off"
               class="layui-input"
             />
