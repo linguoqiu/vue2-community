@@ -5,21 +5,17 @@
         <div class="layui-form-item">
           <label class="layui-form-label">用户名</label>
           <div class="layui-input-inline">
-            <input
-              type="text"
-              name="name"
-              required
-              lay-verify="required"
-              placeholder="请输入用户名"
-              v-modela.trim="name"
-              v-validate="'required|email'"
-              autocomplete="off"
-              class="layui-input"
-              v-model="name"
-            />
-          </div>
-          <div class="error layui-form-mid">
-            {{ errors.first('name') }}
+            <ValidationProvider rules="required" v-slot="{ errors }">
+              <input
+                type="text"
+                name="name"
+                placeholder="请输入用户名"
+                v-modela.trim="name"
+                autocomplete="off"
+                class="layui-input"
+              />
+              <span>{{ errors[0] }}</span>
+            </ValidationProvider>
           </div>
         </div>
         <div class="layui-form-item">
@@ -32,14 +28,9 @@
               lay-verify="required"
               placeholder="请输入密码"
               v-modela.trim="password"
-              v-validate="'required|min:6'"
               autocomplete="off"
               class="layui-input"
-              v-model="password"
             />
-          </div>
-          <div class="error layui-form-mid">
-            {{ errors.first('password') }}
           </div>
         </div>
         <div class="layui-form-item">
@@ -49,16 +40,11 @@
               type="text"
               name="code"
               required
-              lay-verify="required"
               placeholder="请输入验证码"
-              v-validate="'required|length:4'"
               autocomplete="off"
               class="layui-input"
               v-model.trim="code"
             />
-          </div>
-           <div class="error layui-form-mid">
-            {{ errors.first('code') }}
           </div>
           <div
             class="layui-form-mid svg"
@@ -74,9 +60,25 @@
 </template>
 <script>
 import axios from 'axios';
+import { ValidationProvider, extend } from 'vee-validate';
+import { required, email } from 'vee-validate/dist/rules';
+
+// Add a rule.
+extend('required', {
+  ...required,
+  message: '请输入{_field_}内容',
+});
+
+extend('email', {
+  ...email,
+  message: '请输入{_field_}内容',
+});
 
 export default {
   name: 'App',
+  components: {
+    ValidationProvider,
+  },
   data() {
     return {
       svg: '',
