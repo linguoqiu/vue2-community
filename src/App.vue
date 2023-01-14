@@ -4,48 +4,54 @@
       <form class="layui-form layui-form-pane" action="">
         <div class="layui-form-item">
           <label class="layui-form-label">用户名</label>
-          <div class="layui-input-inline">
-            <ValidationProvider rules="required" v-slot="{ errors }">
-              <input
-                type="text"
-                name="name"
-                placeholder="请输入用户名"
-                v-model.trim="name"
-                autocomplete="off"
-                class="layui-input"
-              />
-              <span>{{ errors[0] }}</span>
-            </ValidationProvider>
-          </div>
+          <ValidationProvider rules="required|email" name="用户名" v-slot="{ errors }">
+            <div class="layui-input-inline">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="请输入用户名"
+                  v-model.trim="name"
+                  autocomplete="off"
+                  class="layui-input"
+                />
+            </div>
+            <span class="error layui-form-mid">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
         <div class="layui-form-item">
           <label class="layui-form-label">密码</label>
-          <div class="layui-input-inline">
-            <input
-              type="password"
-              name="password"
-              required
-              lay-verify="required"
-              placeholder="请输入密码"
-              v-model.trim="password"
-              autocomplete="off"
-              class="layui-input"
-            />
-          </div>
+          <ValidationProvider rules="required" name="密码" v-slot="{ errors }">
+            <div class="layui-input-inline">
+              <input
+                type="password"
+                name="password"
+                required
+                lay-verify="required"
+                placeholder="请输入密码"
+                v-model.trim="password"
+                autocomplete="off"
+                class="layui-input"
+              />
+            </div>
+            <span class="error layui-form-mid">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
         <div class="layui-form-item">
           <label class="layui-form-label">验证码</label>
-          <div class="layui-input-inline">
-            <input
-              type="text"
-              name="code"
-              required
-              placeholder="请输入验证码"
-              autocomplete="off"
-              class="layui-input"
-              v-model.trim="code"
-            />
-          </div>
+          <ValidationProvider rules="required" name="验证码" v-slot="{ errors }">
+            <div class="layui-input-inline">
+              <input
+                type="text"
+                name="code"
+                required
+                placeholder="请输入验证码"
+                autocomplete="off"
+                class="layui-input"
+                v-model.trim="code"
+              />
+            </div>
+            <span class="error layui-form-mid">{{ errors[0] }}</span>
+          </ValidationProvider>
           <div
             class="layui-form-mid svg"
             v-html="svg"
@@ -61,18 +67,25 @@
 <script>
 import axios from 'axios';
 import { ValidationProvider, extend } from 'vee-validate';
-import { required, email } from 'vee-validate/dist/rules';
+import * as rules from 'vee-validate/dist/rules';
+import zh from 'vee-validate/dist/locale/zh_CN';
 
 // Add a rule.
-extend('required', {
-  ...required,
-  message: '请输入{_field_}内容',
-});
+// extend('required', {
+//   ...required,
+//   message: '请输入{_field_}内容',
+// });
 
-extend('email', {
-  ...email,
-  message: '请输入{_field_}内容',
-});
+// extend('email', {
+//   ...email,
+//   message: '请输入{_field_}内容',
+// });
+for (const rule in rules) {
+  extend(rule, {
+    ...rules[rule],
+    message: zh.messages[rule],
+  });
+}
 
 export default {
   name: 'App',
