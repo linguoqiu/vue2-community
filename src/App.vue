@@ -1,163 +1,23 @@
 <template>
   <div id="app">
-    <div class="layui-container">
-      <form class="layui-form layui-form-pane" action="">
-        <div class="layui-form-item">
-          <label class="layui-form-label">用户名</label>
-          <ValidationProvider rules="required|email" name="用户名" v-slot="{ errors }">
-            <div class="layui-input-inline">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="请输入用户名"
-                  v-model.trim="name"
-                  autocomplete="off"
-                  class="layui-input"
-                />
-            </div>
-            <span class="error layui-form-mid">{{ errors[0] }}</span>
-          </ValidationProvider>
-        </div>
-        <div class="layui-form-item">
-          <label class="layui-form-label">密码</label>
-          <ValidationProvider rules="required" name="密码" v-slot="{ errors }">
-            <div class="layui-input-inline">
-              <input
-                type="password"
-                name="password"
-                required
-                lay-verify="required"
-                placeholder="请输入密码"
-                v-model.trim="password"
-                autocomplete="off"
-                class="layui-input"
-              />
-            </div>
-            <span class="error layui-form-mid">{{ errors[0] }}</span>
-          </ValidationProvider>
-        </div>
-        <div class="layui-form-item">
-          <label class="layui-form-label">验证码</label>
-          <ValidationProvider rules="required" name="验证码" v-slot="{ errors }">
-            <div class="layui-input-inline">
-              <input
-                type="text"
-                name="code"
-                required
-                placeholder="请输入验证码"
-                autocomplete="off"
-                class="layui-input"
-                v-model.trim="code"
-              />
-            </div>
-            <span class="error layui-form-mid">{{ errors[0] }}</span>
-          </ValidationProvider>
-          <div
-            class="layui-form-mid svg"
-            v-html="svg"
-            @click="getCaptcha"
-          ></div>
-        </div>
-        <button type="button" class="layui-btn">立即登录</button>
-        <a class="forget-link" href="">忘记密码</a>
-      </form>
-    </div>
+    <Header></Header>
+    <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
+
 <script>
-import axios from 'axios';
-import { ValidationProvider, extend } from 'vee-validate';
-import * as rules from 'vee-validate/dist/rules';
-import zh from 'vee-validate/dist/locale/zh_CN';
-
-// Add a rule.
-// extend('required', {
-//   ...required,
-//   message: '请输入{_field_}内容',
-// });
-
-// extend('email', {
-//   ...email,
-//   message: '请输入{_field_}内容',
-// });
-for (const rule in rules) {
-  extend(rule, {
-    ...rules[rule],
-    message: zh.messages[rule],
-  });
-}
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 
 export default {
+  components: { Header, Footer },
   name: 'App',
-  components: {
-    ValidationProvider,
-  },
-  data() {
-    return {
-      svg: '',
-      name: '',
-      password: '',
-      code: '',
-      errorMsg: [],
-    };
-  },
-  mounted() {
-    this.getCaptcha();
-  },
-  methods: {
-    getCaptcha() {
-      axios.get('http://localhost:3000/api/getCaptcha').then((res) => {
-        console.log(res);
-        if (res?.status === 200 && res?.data?.code === 200) {
-          this.svg = res.data.data;
-        }
-      });
-    },
-    checkForm() {
-      this.errorMsg = [];
-      if (!this.name) {
-        this.errorMsg.push('登录密码为空！');
-      }
-      if (!this.password) {
-        this.errorMsg.push('密码为空！');
-      }
-      if (!this.code) {
-        this.errorMsg.push('验证码为空！');
-      }
-    },
-  },
 };
 </script>
-<style lang="scss" scoped>
-#app {
-  background-color: #f2f2f2;
-}
-.layui-container {
-  background: #fff;
-}
 
-.layui-form-pane {
-  margin: 0 12px;
-}
-
-input {
-  width: 190px;
-}
-
-.forget-link {
-  margin-left: 10px;
-  &:hover {
-    color: #009688;
-  }
-}
-
-.svg {
-  position: relative;
-  top: -15px;
-  cursor: pointer;
-}
-
-.error {
-  color: red;
-}
+<style lang="scss">
+@import "assets/layui/css/layui.css";
+@import "assets/css/global.css";
+@import "assets/layui/css/modules/layer/default/layer.css";
 </style>

@@ -20,5 +20,6 @@ module.exports = {
         asyncArrow: 'always',
       },
     ],
+    'vue/multi-word-component-names': 'off',
   },
 };
