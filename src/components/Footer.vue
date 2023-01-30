@@ -1,7 +1,7 @@
 <template>
   <div class="fly-footer">
     <p>
-      <a href="http://fly.layui.com/" target="_blank">xxxxxxx社区</a> 2017 &copy;
+      <a href="http://fly.layui.com/" target="_blank">xxxxxxx社区</a> 2022 &copy;
       <a href="http://www.layui.com/" target="_blank">xxxxxx.com 出品</a>
     </p>
     <p>
