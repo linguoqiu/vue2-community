@@ -54,9 +54,7 @@
                 </div>
                 <div class="layui-form-item">
                   <div class="layui-row">
-                    <label for="L_vercode" class="layui-form-label"
-                      >验证码</label
-                    >
+                    <label for="L_vercode" class="layui-form-label">验证码</label>
                     <div class="layui-input-inline">
                       <input
                         type="text"
@@ -72,10 +70,8 @@
                       <span class="svg" style="color: #c00" v-html="svg" @click="_getCode()"></span>
                     </div>
                     <div class="layui-form-mid">
-                    <span style="color: #c00">{{
-                      errors.first('code')
-                    }}</span>
-                  </div>
+                      <span style="color: #c00">{{errors.first('code')}}</span>
+                    </div>
                   </div>
                 </div>
                 <div class="layui-form-item">

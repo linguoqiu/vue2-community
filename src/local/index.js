@@ -9,6 +9,7 @@ const dictionary = {
       required: (field) => '请输入' + field,
       email: () => '请输入正确的邮箱格式',
       min: () => '不符合最小长度要求',
+      max: () => '不符合最大长度要求',
       length: (field, args) => field + '长度要求' + args + '个字符',
       confirmed: () => '两次输入内容不一致',
     },
