@@ -63,6 +63,7 @@
                         type="password"
                         name="password"
                         v-model="password"
+                        ref="password"
                         v-validate="'required|min:6|max:16'"
                         placeholder="请输入验证码"
                         autocomplete="off"
@@ -82,16 +83,16 @@
                   <div class="layui-input-inline">
                     <input
                       type="password"
-                      name="comfirmpassword"
-                      v-model="comfirmpassword"
-                      v-validate="'required|min:6|max:16'"
+                      name="confirmpassword"
+                      v-model="confirmpassword"
+                       v-validate="'required|min:6|max:16|confirmed:password'"
                       placeholder="请输入验证码"
                       autocomplete="off"
                       class="layui-input"
                     />
                   </div>
                    <div class="layui-form-mid">
-                    <span style="color: #c00">{{errors.first('comfirmpassword')}}</span>
+                    <span style="color: #c00">{{errors.first('confirmpassword')}}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
@@ -155,7 +156,7 @@ export default {
       username: '',
       nickname: '',
       password: '',
-      comfirmpassword: '',
+      confirmpassword: '',
       code: '',
       svg: '',
     };
